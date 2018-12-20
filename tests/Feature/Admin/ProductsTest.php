@@ -24,8 +24,8 @@ class ProductsTest extends TestCase
     {
         $Products = factory(Product::class, 3)->create();
         $response = $this->addLoginHeader($this->user)->getJson('/admin/products');
-        $this->assertCount(3, $response->json());
-        $this->assertJsonStringEqualsJsonString($Products->toJson(), $response->content());
+        $response->assertJsonCount(3);
+        $response->assertJson($Products->toArray());
     }
 
     public function test_can_create_product()

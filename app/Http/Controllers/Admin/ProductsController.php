@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SaveProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductCollection;
 use App\Product;
 use App\Http\Controllers\Controller;
 
@@ -12,12 +13,12 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ProductCollection
      */
     public function index()
     {
         $Products = Product::all();
-        return response()->json($Products, 200, [], JSON_NUMERIC_CHECK);
+        return new ProductCollection($Products);
     }
 
     /**
