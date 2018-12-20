@@ -11,6 +11,12 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Product::class, 10)->create();
+        factory(\App\Product::class, 10)->create()->each(
+            function ($Product) {
+                $Products = factory(\App\Product::class, 3)->create();
+                $ids = $Products->pluck('id')->all();
+                $Product->Bundle()->attach($ids);
+            }
+        );
     }
 }
