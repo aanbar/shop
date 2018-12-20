@@ -20,7 +20,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('me', 'AuthController@me');
 });
 
-Route::group(['middleware' => 'api', 'prefix' => 'admin'], function ($router) {
+Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'admin'], function ($router) {
    Route::resource('products', 'Admin\ProductsController')->except(['create', 'edit']);
 });
 
