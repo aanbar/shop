@@ -26,6 +26,11 @@ Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'admin'], function ($
    Route::post('products/{product}/detach', 'Admin\ProductsController@detach');
 });
 
+Route::group(['middleware' => 'api'], function ($router) {
+    Route::get('products', 'ProductsController@index');
+    Route::get('products/{product}', 'ProductsController@show');
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
