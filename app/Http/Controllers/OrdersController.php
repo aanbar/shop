@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlaceOrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Order;
 use App\OrderItems;
 use App\Product;
@@ -35,6 +36,6 @@ class OrdersController extends Controller
 
         $Order->Items()->saveMany($OrderItems);
         $data = Order::with('Items')->find($Order->id);
-        return response()->json(['success' => true, 'data' => $data->toArray()]);
+        return response()->json(['success' => true, 'data' => new OrderResource($data)]);
     }
 }
