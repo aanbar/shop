@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\AttachProductsToBundleRequest;
 use App\Http\Requests\SaveProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Product;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -40,6 +42,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
+        $product->load('Bundle');
         return response()->json($product->toArray(), 200, [], JSON_NUMERIC_CHECK);
     }
 
@@ -70,5 +73,19 @@ class ProductsController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
+    }
+
+    public function attach(Product $product, AttachProductsToBundleRequest $request)
+    {
+        $Products = Product::whereIn('id', $request->products);
+        $product->Bundle()->attach($Products->pluck('id'));
+        return response()->json(['success' => true, 'message' => 'products added to bundle']);
+    }
+
+    public function detach(Product $product, AttachProductsToBundleRequest $request)
+    {
+        $Products = Product::whereIn('id', $request->products);
+        $product->Bundle()->detach($Products->pluck('id'));
+        return response()->json(['success' => true, 'message' => 'products added to bundle']);
     }
 }

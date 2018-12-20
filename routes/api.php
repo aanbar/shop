@@ -22,6 +22,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 
 Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'admin'], function ($router) {
    Route::resource('products', 'Admin\ProductsController')->except(['create', 'edit']);
+   Route::post('products/{product}/attach', 'Admin\ProductsController@attach');
+   Route::post('products/{product}/detach', 'Admin\ProductsController@detach');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
