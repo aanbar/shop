@@ -29,6 +29,7 @@ Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'admin'], function ($
 Route::group(['middleware' => 'api'], function ($router) {
     Route::get('products', 'ProductsController@index');
     Route::get('products/{product}', 'ProductsController@show');
+    Route::post('order', 'OrdersController@place_order');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

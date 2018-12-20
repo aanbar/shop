@@ -31,7 +31,9 @@ class PlaceOrderRequest extends FormRequest
             'address'       => ['required'],
             'city'          => ['required'],
             'country'       => ['required'],
-            'products'      => ['required', 'array']
+            'products'      => ['required', 'array'],
+            'products.*.id'   => ['required', 'exists:products'],
+            'products.*.quantity' => ['required', 'integer', 'min:1']
         ];
     }
 }
