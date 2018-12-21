@@ -12,7 +12,7 @@ An example backend shop written in PHP using Laravel &amp; JWT authentication
 1. Run The migrations `php artisan migrate`
 1. Run the system `php artisan serve`
 
->API Docs are available in public/docs 
+>API Docs are available in public/docs & can be viewed through http by accessing http://127.0.0.1:8000/docs/
 # What's Included?
 - User Login (assumed admin only)
 - Ability to add products with discount & discount type (percentage, fixed)
