@@ -31,7 +31,7 @@ class PlaceOrderTest extends TestCase
     {
         $Order = factory(Order::class)->make()->toArray();
         $Product = factory(Product::class)->create();
-        $Order['products'][] = ['id' => $Product->id, 'quantity' => 1];
+        $Order['products'][] = ['id' => $Product->id, 'quantity' => rand(1, 10)];
         $response = $this->postJson('/order', $Order);
         $response->assertOk();
     }

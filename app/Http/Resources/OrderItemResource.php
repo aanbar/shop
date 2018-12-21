@@ -14,18 +14,13 @@ class OrderItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        $Discount = $this->product_discount_type === 'Fixed' ? $this->product_discount : 0;
-        if ( $this->product_discount_type === 'Percentage' ) {
-            $Discount = round(($this->product_price * $this->product_discount) /  100);
-        }
-        $subTotal = round($this->product_price - $Discount, 2);
         return [
             'name' => $this->product_name,
             'quantity' => $this->quantity,
             'original_price' => $this->product_price,
-            'discount' => $Discount,
-            'subtotal' => $subTotal,
-            'total' => $subTotal * $this->quantity,
+            'discount' => $this->calculated_discount,
+            'subtotal' => $this->subtotal,
+            'total' => $this->total,
             'bundled_items' => $this->bundle_data
         ];
     }

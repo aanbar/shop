@@ -23,6 +23,9 @@ class CreateOrdersItemsTable extends Migration
             $table->enum('product_discount_type', ['None', 'Fixed', 'Percentage'])->default('None');
             $table->decimal('product_discount');
             $table->text('bundle_data')->nullable();
+            $table->decimal('calculated_discount');
+            $table->decimal('subtotal');
+            $table->decimal('total');
             $table->timestamps();
 
             $table->foreign('order_id')
