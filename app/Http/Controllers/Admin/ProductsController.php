@@ -13,9 +13,10 @@ use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return ProductCollection
+     * @api {get} /admin/products list products
+     * @apiPermission authenticated
+     * @apiName ListProducts
+     * @apiGroup Admin
      */
     public function index()
     {
@@ -24,10 +25,14 @@ class ProductsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param SaveProductRequest $request
-     * @return \Illuminate\Http\Response
+     * @api {post} /admin/products add a new product
+     * @apiPermission authenticated
+     * @apiName addProduct
+     * @apiParam {string} name Mandatory Product Name
+     * @apiParam {decimal} price Mandatory Product Price
+     * @apiParam {string} discount_type One of the following ['None', 'Percentage', 'Fixed']
+     * @apiParam {decimal} discount
+     * @apiGroup Admin
      */
     public function store(SaveProductRequest $request)
     {
@@ -35,10 +40,12 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @api {get} /admin/products/:id display a single product
+     * @apiPermission authenticated
+     * @apiName showProduct
+     * @apiParam {number} id product id
+     * @apiGroup Admin
      *
-     * @param Product $product
-     * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
@@ -47,11 +54,15 @@ class ProductsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateProductRequest $request
-     * @param Product $product
-     * @return \Illuminate\Http\Response
+     * @api {patch} /admin/products/:id update existing product
+     * @apiPermission authenticated
+     * @apiName updateProduct
+     * @apiParam {number} id product id
+     * @apiParam {string} name Product Name
+     * @apiParam {decimal} price Product Price
+     * @apiParam {string} discount_type One of the following ['None', 'Percentage', 'Fixed']
+     * @apiParam {decimal} discount
+     * @apiGroup Admin
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
@@ -60,10 +71,11 @@ class ProductsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param Product $product
-     * @return \Illuminate\Http\Response
+     * @api {delete} /admin/products/:id delete a product
+     * @apiPermission authenticated
+     * @apiName deleteProduct
+     * @apiParam {number} id product id
+     * @apiGroup Admin
      */
     public function destroy(Product $product)
     {
@@ -75,6 +87,14 @@ class ProductsController extends Controller
         }
     }
 
+    /**
+     * @api {post} /admin/products/:id/attach bundle products with existing product
+     * @apiPermission authenticated
+     * @apiName attachProducts
+     * @apiParam {number} id the id of the product you are updating
+     * @apiParam {array} products array containing products ids you want to associate with this product
+     * @apiGroup Admin
+     */
     public function attach(Product $product, AttachProductsToBundleRequest $request)
     {
         $Products = Product::whereIn('id', $request->products);
@@ -82,6 +102,15 @@ class ProductsController extends Controller
         return response()->json(['success' => true, 'message' => 'products added to bundle']);
     }
 
+
+    /**
+     * @api {post} /admin/products/:id/detach remove products from bundled product
+     * @apiPermission authenticated
+     * @apiName detachProduct
+     * @apiParam {number} id the id of the product you are updating
+     * @apiParam {array} products array containing products ids you want to associate with this product
+     * @apiGroup Admin
+     */
     public function detach(Product $product, AttachProductsToBundleRequest $request)
     {
         $Products = Product::whereIn('id', $request->products);

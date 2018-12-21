@@ -12,8 +12,19 @@ use Illuminate\Http\Request;
 class OrdersController extends Controller
 {
     /**
-     * @param PlaceOrderRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @api {post} /order place your order
+     * @apiPermission None
+     * @apiName placeOrder
+     * @apiParam {string} first_name First Name
+     * @apiParam {string} last_name Last Name
+     * @apiParam {string} email Email Address
+     * @apiParam {string} phone Phone Number
+     * @apiParam {string} address Address
+     * @apiParam {string} city City
+     * @apiParam {string} country Country
+     * @apiParam {array} products Products you are ordering e.g: [{id: 1, quantity: 4}, {id: 2, quantity: 1}]
+     * @apiGroup Products
+     *
      */
     public function place_order(PlaceOrderRequest $request)
     {

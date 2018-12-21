@@ -1,0 +1,10 @@
+{
+  "name": "ShopApp",
+  "version": "0.0.1",
+  "description": "An Example Shop API",
+  "title": "Shop API docs",
+  "template": {
+    "withCompare": false,
+    "withGenerator": false
+  }
+}

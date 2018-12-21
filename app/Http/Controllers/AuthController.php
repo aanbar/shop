@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class AuthController extends Controller
 {
     public function __construct()
@@ -11,6 +9,14 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
+    /**
+     * @api {post} /auth/login authenticate yourself to the system
+     * @apiPermission None
+     * @apiName login
+     * @apiParam {string} email your email address
+     * @apiParam {string} password your password
+     * @apiGroup Auth
+     */
     public function login()
     {
         $credentials = request(['email', 'password']);
@@ -22,17 +28,35 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    /**
+     * @api {post} /auth/me fetch currently logged in user info
+     * @apiPermission authenticated
+     * @apiName Me
+     * @apiGroup Auth
+     */
     public function me()
     {
         return response()->json(auth()->user());
     }
 
+    /**
+     * @api {post} /auth/logout log user out of the system
+     * @apiPermission authenticated
+     * @apiName logout
+     * @apiGroup Auth
+     */
     public function logout()
     {
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    /**
+     * @api {post} /auth/refresh fetch a new auth token for currently logged-in user
+     * @apiPermission authenticated
+     * @apiName refresh
+     * @apiGroup Auth
+     */
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());

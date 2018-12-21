@@ -8,7 +8,10 @@ use App\Product;
 class ProductsController extends Controller
 {
     /**
-     * @return ProductCollection
+     * @api {get} /products list products
+     * @apiName listProducts
+     * @apiPermission None
+     * @apiGroup Products
      */
     public function index()
     {
@@ -17,8 +20,12 @@ class ProductsController extends Controller
     }
 
     /**
-     * @param Product $product
-     * @return Product
+     * @api {get} /products/:id display a single product
+     * @apiPermission None
+     * @apiName showProduct
+     * @apiParam {number} id product id
+     * @apiGroup Products
+     *
      */
     public function show(Product $product)
     {
