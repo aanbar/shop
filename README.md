@@ -1,6 +1,18 @@
 # shop
 An example backend shop written in PHP using Laravel &amp; JWT authentication
 
+# Usage
+1. Clone The project:
+`git clone https://github.com/aanbar/shop`
+1. Copy over .env.exaample to .env
+`cp .env.example .env`
+1. Run Composer
+`composer install`
+1. Generate JWT Token Secret Key `php artisan jwt:secret`
+1. Run The migrations `php artisan migrate`
+1. Run the system `php artisan serve`
+
+>API Docs are available in public/docs 
 # What's Included?
 - User Login (assumed admin only)
 - Ability to add products with discount & discount type (percentage, fixed)
@@ -9,4 +21,3 @@ An example backend shop written in PHP using Laravel &amp; JWT authentication
 # What's missing?
 - Ability to change your password
 - Standarized json response
-- API documentation
