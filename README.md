@@ -9,6 +9,7 @@ An example backend shop written in PHP using Laravel &amp; JWT authentication
 1. Run Composer
 `composer install`
 1. Generate JWT Token Secret Key `php artisan jwt:secret`
+1. Edit your `.env` and provide your database settings. 
 1. Run The migrations `php artisan migrate`
 1. Run the system `php artisan serve`
 
